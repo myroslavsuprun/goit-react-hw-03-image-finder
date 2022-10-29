@@ -12,7 +12,6 @@ import { ToastContainer } from 'react-toastify';
 class App extends Component {
   state = {
     ifModalOpen: false,
-    ifLoadMorePossible: true,
     modalImg: '',
     modalAlt: '',
     searchQuery: '',

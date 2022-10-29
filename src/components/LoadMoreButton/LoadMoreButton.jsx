@@ -10,7 +10,7 @@ class LoadMoreButton extends Component {
   };
 
   componentDidUpdate() {
-    if (this.props.status !== 'shown') return;
+    if (this.props.status === 'pending') return;
 
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
