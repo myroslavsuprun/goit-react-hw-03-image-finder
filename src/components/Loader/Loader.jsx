@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import { Bars } from 'react-loader-spinner';
@@ -30,5 +31,10 @@ class Loader extends Component {
     );
   }
 }
+
+Loader.propTypes = {
+  positionType: PropTypes.string,
+  ifLargeSize: PropTypes.bool,
+};
 
 export default Loader;

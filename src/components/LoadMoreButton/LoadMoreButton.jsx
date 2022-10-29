@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // Components
 import Button from 'components/Button';
@@ -29,5 +30,9 @@ class LoadMoreButton extends Component {
     }
   }
 }
+
+LoadMoreButton.propTypes = {
+  status: PropTypes.oneOf(['hidden', 'pending', 'shown']),
+};
 
 export default LoadMoreButton;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import PixabayAPI from 'js/Components/PixabayAPI';
 
@@ -129,5 +130,10 @@ class ImageGallery extends Component {
     }
   }
 }
+
+ImageGallery.propTypes = {
+  searchQuery: PropTypes.string.isRequired,
+  onImgCardClick: PropTypes.func.isRequired,
+};
 
 export default ImageGallery;

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import PropTypes from 'prop-types';
+
 // Styled components
 import { Title } from './ErrorMessage.styled';
 
@@ -14,5 +16,9 @@ class ErrorMessage extends Component {
     return <Title>{title}</Title>;
   }
 }
+
+ErrorMessage.propTypes = {
+  title: PropTypes.string,
+};
 
 export default ErrorMessage;

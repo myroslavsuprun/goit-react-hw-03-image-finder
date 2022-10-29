@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { createPortal } from 'react-dom';
 
@@ -50,5 +51,11 @@ class Modal extends Component {
     return createPortal(modalLayout, modalRoot);
   }
 }
+
+Modal.propTypes = {
+  img: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  onModalClose: PropTypes.func.isRequired,
+};
 
 export default Modal;

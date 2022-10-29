@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 // Styled components
 import { StyledBtn } from './Button.styled';
 
 class Button extends Component {
+  static defaultProps = {
+    title: '',
+  };
+
   render() {
     const { onClick, title } = this.props;
     return (
@@ -13,5 +18,10 @@ class Button extends Component {
     );
   }
 }
+
+Button.propTypes = {
+  title: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default Button;

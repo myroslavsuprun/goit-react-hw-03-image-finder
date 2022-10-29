@@ -8,7 +8,6 @@ import Modal from 'components/Modal';
 
 import { ToastContainer } from 'react-toastify';
 
-// Don't forget PROPS TYPE!!
 class App extends Component {
   state = {
     ifModalOpen: false,
