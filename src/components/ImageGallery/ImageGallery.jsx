@@ -7,6 +7,10 @@ import ImageGalleryItem from 'components/ImageGalleryItem';
 import Loader from 'components/Loader';
 import ErrorMessage from 'components/ErrorMessage';
 
+// Toastify notification component
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 // Styled components
 import { GalleryList } from './ImageGallery.styled';
 import Button from 'components/Button';
@@ -31,11 +35,14 @@ class ImageGallery extends Component {
       });
 
       try {
-        this.setState({
-          data: await PixabayAPI.getImages(this.props.searchQuery),
-          status: 'resolved',
-          ifLoadMorePossible: PixabayAPI.ifMoreImagesPossible,
-        });
+        this.setState(
+          {
+            data: await PixabayAPI.getImages(this.props.searchQuery),
+            status: 'resolved',
+            ifLoadMorePossible: PixabayAPI.ifMoreImagesPossible,
+          },
+          this.checkDataLength
+        );
       } catch (e) {
         this.setState({
           rejectMessage: e.message,
@@ -63,6 +70,14 @@ class ImageGallery extends Component {
         rejectMessage: e.message,
         status: 'rejected',
       });
+    }
+  };
+
+  checkDataLength = () => {
+    if (this.state.data.length <= 0) {
+      toast.warning('Woops, nothing was found.');
+    } else {
+      toast('Here are your results');
     }
   };
 
@@ -98,9 +113,7 @@ class ImageGallery extends Component {
     if (status === 'resolved') {
       return (
         <>
-          <GalleryList>
-            {data.length >= 1 ? data.map(DataMapCallback) : <></>}
-          </GalleryList>
+          <GalleryList>{data.map(DataMapCallback)}</GalleryList>
           {ifLoadMorePossible && (
             <Button onClick={this.onLoadMoreClick} title={'Load More'} />
           )}

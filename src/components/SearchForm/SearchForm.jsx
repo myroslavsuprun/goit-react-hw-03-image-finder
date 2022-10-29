@@ -5,6 +5,7 @@ import { Form, FormButton, FormInput } from './SearchFrom.styled';
 
 // Icons
 import { BsSearch } from 'react-icons/bs';
+import { toast } from 'react-toastify';
 
 class SearchForm extends Component {
   state = {
@@ -17,7 +18,8 @@ class SearchForm extends Component {
 
     const searchQuery = e.target.elements.search.value;
 
-    if (searchQuery === this.state.searchQuery) return;
+    if (searchQuery === this.state.searchQuery)
+      return toast.warning('Try something new');
 
     this.setState({
       searchQuery,

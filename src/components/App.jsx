@@ -6,6 +6,8 @@ import SearchBar from './SearchBar';
 import ImageGallery from './ImageGallery';
 import Modal from 'components/Modal';
 
+import { ToastContainer } from 'react-toastify';
+
 // Don't forget PROPS TYPE!!
 class App extends Component {
   state = {
@@ -54,6 +56,19 @@ class App extends Component {
             img={modalImg}
           />
         )}
+
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </AppWrapper>
     );
   }
