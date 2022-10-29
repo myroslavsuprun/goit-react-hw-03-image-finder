@@ -6,6 +6,7 @@ import PixabayAPI from 'js/Components/PixabayAPI';
 import ImageGalleryItem from 'components/ImageGalleryItem';
 import Loader from 'components/Loader';
 import ErrorMessage from 'components/ErrorMessage';
+import LoadMoreButton from 'components/LoadMoreButton';
 
 // Toastify notification component
 import { toast } from 'react-toastify';
@@ -13,7 +14,6 @@ import 'react-toastify/dist/ReactToastify.min.css';
 
 // Styled components
 import { GalleryList } from './ImageGallery.styled';
-import Button from 'components/Button';
 
 class ImageGallery extends Component {
   static defaultProps = {
@@ -21,9 +21,9 @@ class ImageGallery extends Component {
   };
 
   state = {
-    ifLoadMorePossible: false,
     ifModalOpen: false,
     status: 'idle',
+    loadMoreStatus: 'hidden',
     data: [],
     rejectMessage: '',
   };
@@ -35,13 +35,16 @@ class ImageGallery extends Component {
       });
 
       try {
+        const data = await PixabayAPI.getImages(this.props.searchQuery);
+        const loadMoreStatus = this.createLoadMoreStatus();
+
         this.setState(
           {
-            data: await PixabayAPI.getImages(this.props.searchQuery),
+            data,
+            loadMoreStatus,
             status: 'resolved',
-            ifLoadMorePossible: PixabayAPI.ifMoreImagesPossible,
           },
-          this.checkDataLength
+          this.showMessageDependingOnDataLength
         );
       } catch (e) {
         this.setState({
@@ -54,16 +57,15 @@ class ImageGallery extends Component {
 
   onLoadMoreClick = async () => {
     this.setState({
-      status: 'pending',
+      loadMoreStatus: 'pending',
     });
-
     try {
       const incomingData = await PixabayAPI.getImages();
+      const loadMoreStatus = this.createLoadMoreStatus();
 
       this.setState(prevState => ({
         data: [...prevState.data, ...incomingData],
-        status: 'resolved',
-        ifLoadMorePossible: PixabayAPI.ifMoreImagesPossible,
+        loadMoreStatus,
       }));
     } catch (e) {
       this.setState({
@@ -73,7 +75,7 @@ class ImageGallery extends Component {
     }
   };
 
-  checkDataLength = () => {
+  showMessageDependingOnDataLength = () => {
     if (this.state.data.length <= 0) {
       toast.warning('Woops, nothing was found.');
     } else {
@@ -81,14 +83,18 @@ class ImageGallery extends Component {
     }
   };
 
+  createLoadMoreStatus = () =>
+    PixabayAPI.ifMoreImagesPossible ? 'shown' : 'hidden';
+
   render() {
-    const { status, data, rejectMessage, ifLoadMorePossible } = this.state;
+    const { status, data, rejectMessage, loadMoreStatus } = this.state;
+    const { onImgCardClick } = this.props;
 
     const DataMapCallback = image => {
       const { id, largeImageURL, tags } = image;
       return (
         <ImageGalleryItem
-          onImgCardClick={this.props.onImgCardClick}
+          onImgCardClick={onImgCardClick}
           key={id}
           previewImg={largeImageURL}
           tags={tags}
@@ -101,7 +107,7 @@ class ImageGallery extends Component {
     }
 
     if (status === 'pending') {
-      return <Loader />;
+      return <Loader positionType="absolute" ifLargeSize={true} />;
     }
 
     if (status === 'rejected') {
@@ -114,9 +120,10 @@ class ImageGallery extends Component {
       return (
         <>
           <GalleryList>{data.map(DataMapCallback)}</GalleryList>
-          {ifLoadMorePossible && (
-            <Button onClick={this.onLoadMoreClick} title={'Load More'} />
-          )}
+          <LoadMoreButton
+            status={loadMoreStatus}
+            onClick={this.onLoadMoreClick}
+          />
         </>
       );
     }

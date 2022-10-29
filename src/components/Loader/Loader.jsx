@@ -7,12 +7,19 @@ import { Bars } from 'react-loader-spinner';
 import { LoaderWrapper } from './Loader.styled';
 
 class Loader extends Component {
+  static defaultProps = {
+    positionType: 'absolute',
+    ifLargeSize: true,
+  };
+
   render() {
+    const { positionType, ifLargeSize } = this.props;
+
     return (
-      <LoaderWrapper>
+      <LoaderWrapper positionType={positionType}>
         <Bars
-          height="90"
-          width="90"
+          height={ifLargeSize ? '90' : '60'}
+          width={ifLargeSize ? '90' : '60'}
           color="#3f51b5"
           ariaLabel="bars-loading"
           wrapperStyle={{}}
