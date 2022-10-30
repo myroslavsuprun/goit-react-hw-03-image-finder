@@ -6,10 +6,10 @@ import PixabayAPI from 'js/Components/PixabayAPI';
 import AppWrapper from './AppWrapper';
 import SearchBar from './SearchBar';
 import ImageGallery from './ImageGallery';
-import Modal from 'components/Modal';
-import Loader from './Loader';
 import Message from './Message';
+import Loader from './Loader';
 import Button from './Button';
+import Modal from 'components/Modal';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -25,8 +25,8 @@ class App extends Component {
     searchQuery: '',
     data: [],
     rejectMessage: '',
-    modalAlt: '',
-    modalImg: '',
+    modalAlt: false,
+    modalImg: false,
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -97,7 +97,7 @@ class App extends Component {
 
   onFormSubmit = searchQuery => {
     this.setState({
-      searchQuery: searchQuery,
+      searchQuery,
     });
   };
 
@@ -110,42 +110,38 @@ class App extends Component {
 
   onModalClose = () => {
     this.setState(() => ({
-      modalImg: '',
-      modalAlt: '',
+      modalImg: false,
+      modalAlt: false,
     }));
   };
 
   render() {
+    const { status, loadMoreStatus, rejectMessage, data, modalImg, modalAlt } =
+      this.state;
+
     const renderIfStatusIdle = () =>
-      this.state.status === 'idle' && (
-        <Message title="Start looking for images 🔎" />
-      );
+      status === 'idle' && <Message title="Start looking for images 🔎" />;
 
     const renderIfStatusPending = () =>
-      this.state.status === 'pending' && (
+      status === 'pending' && (
         <Loader positionType={'absolute'} ifLargeSize={true} />
       );
 
     const renderIfStatusResolved = () =>
-      this.state.status === 'resolved' && (
-        <ImageGallery
-          data={this.state.data}
-          onImgCardClick={this.onImgCardClick}
-        />
+      status === 'resolved' && (
+        <ImageGallery data={data} onImgCardClick={this.onImgCardClick} />
       );
 
     const renderIfStatusRejected = () =>
-      this.state.status === 'rejected' && (
-        <Message title={this.state.rejectMessage} />
-      );
+      status === 'rejected' && <Message title={rejectMessage} />;
 
     const renderLoadMore = () => {
-      if (this.state.loadMoreStatus === 'hidden') return;
+      if (loadMoreStatus === 'hidden') return;
 
-      if (this.state.loadMoreStatus === 'pending')
+      if (loadMoreStatus === 'pending')
         return <Loader positionType="centered" ifLargeSize={false} />;
 
-      if (this.state.loadMoreStatus === 'shown')
+      if (loadMoreStatus === 'shown')
         return <Button onClick={this.onLoadMoreClick} title="Load More" />;
     };
 
@@ -159,11 +155,11 @@ class App extends Component {
         {renderIfStatusRejected()}
         {renderLoadMore()}
 
-        {this.state.modalImg && (
+        {modalImg && (
           <Modal
             onModalClose={this.onModalClose}
-            alt={this.state.modalAlt}
-            img={this.state.modalImg}
+            alt={modalAlt}
+            img={modalImg}
           />
         )}
 

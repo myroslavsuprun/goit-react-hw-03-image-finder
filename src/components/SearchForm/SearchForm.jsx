@@ -24,6 +24,7 @@ class SearchForm extends Component {
     this.setState({
       searchQuery,
     });
+
     this.props.onFormSubmit(searchQuery);
     this.resetForm();
   };
@@ -43,23 +44,23 @@ class SearchForm extends Component {
   };
 
   render() {
+    const { inputValue } = this.state;
+
     return (
-      <>
-        <Form onSubmit={this.handleFormSubmit}>
-          <FormButton type="submit" aria-label="Search">
-            <BsSearch size="22" />
-          </FormButton>
-          <FormInput
-            type="text"
-            onChange={this.handleChange}
-            value={this.state.inputValue}
-            autocomplete="off"
-            name="search"
-            autoFocus
-            placeholder="Search images and photos"
-          />
-        </Form>
-      </>
+      <Form onSubmit={this.handleFormSubmit}>
+        <FormButton type="submit" aria-label="Search">
+          <BsSearch size="22" />
+        </FormButton>
+        <FormInput
+          type="text"
+          onChange={this.handleChange}
+          value={inputValue}
+          autocomplete="off"
+          name="search"
+          autoFocus
+          placeholder="Search images and photos"
+        />
+      </Form>
     );
   }
 }

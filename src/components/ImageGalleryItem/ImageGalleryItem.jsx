@@ -7,7 +7,6 @@ import { GalleryItem, GalleryImage } from './ImageGalleryItem.styled';
 class ImageGalleryItem extends Component {
   static defaultProps = {
     previewImg: 'https://picsum.photos/id/2/1000/?blur=10',
-    tags: '',
   };
 
   handleClick = () => {
@@ -18,6 +17,7 @@ class ImageGalleryItem extends Component {
 
   render() {
     const { previewImg, tags } = this.props;
+
     return (
       <GalleryItem onClick={this.handleClick}>
         <GalleryImage loading="lazy" src={previewImg} alt={tags} />

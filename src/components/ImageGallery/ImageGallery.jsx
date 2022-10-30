@@ -9,14 +9,16 @@ import { GalleryList } from './ImageGallery.styled';
 
 class ImageGallery extends Component {
   render() {
-    const { data } = this.props;
+    const { data, onImgCardClick } = this.props;
+
     return (
       <GalleryList>
         {data.map(image => {
           const { id, largeImageURL, tags } = image;
+
           return (
             <ImageGalleryItem
-              onImgCardClick={this.props.onImgCardClick}
+              onImgCardClick={onImgCardClick}
               key={id}
               previewImg={largeImageURL}
               tags={tags}

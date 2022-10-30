@@ -5,10 +5,6 @@ import PropTypes from 'prop-types';
 import { StyledBtn } from './Button.styled';
 
 class Button extends Component {
-  static defaultProps = {
-    title: '',
-  };
-
   render() {
     const { onClick, title } = this.props;
     return (
