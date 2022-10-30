@@ -30,9 +30,9 @@ class ImageGallery extends Component {
   }
 }
 
-// ImageGallery.propTypes = {
-
-//   onImgCardClick: PropTypes.func.isRequired,
-// };
+ImageGallery.propTypes = {
+  data: PropTypes.array.isRequired,
+  onImgCardClick: PropTypes.func.isRequired,
+};
 
 export default ImageGallery;

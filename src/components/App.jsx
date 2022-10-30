@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import PixabayAPI from 'js/Components/PixabayAPI';
 
@@ -179,5 +180,9 @@ class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+  searchQuery: PropTypes.string,
+};
 
 export default App;

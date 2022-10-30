@@ -26,10 +26,10 @@ class ImageGalleryItem extends Component {
   }
 }
 
-// ImageGalleryItem.propTypes = {
-//   previewImg: PropTypes.string.isRequired,
-//   tags: PropTypes.string.isRequired,
-//   onImgCardClick: PropTypes.func.isRequired,
-// };
+ImageGalleryItem.propTypes = {
+  previewImg: PropTypes.string,
+  tags: PropTypes.string,
+  onImgCardClick: PropTypes.func.isRequired,
+};
 
 export default ImageGalleryItem;
