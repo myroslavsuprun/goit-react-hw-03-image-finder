@@ -41,6 +41,8 @@ class App extends Component {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.setState({
         status: 'pending',
+        modalAlt: false,
+        modalImg: false,
       });
 
       try {
