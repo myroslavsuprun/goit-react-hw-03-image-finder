@@ -19,9 +19,9 @@ class Button extends Component {
   }
 }
 
-Button.propTypes = {
-  title: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
-};
+// Button.propTypes = {
+//   title: PropTypes.string,
+//   onClick: PropTypes.func.isRequired,
+// };
 
 export default Button;

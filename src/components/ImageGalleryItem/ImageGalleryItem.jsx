@@ -6,14 +6,14 @@ import { GalleryItem, GalleryImage } from './ImageGalleryItem.styled';
 
 class ImageGalleryItem extends Component {
   static defaultProps = {
-    previewImg: 'https://picsum.photos/id/237/200/300',
+    previewImg: 'https://picsum.photos/id/2/1000/?blur=10',
     tags: '',
   };
 
   handleClick = () => {
-    const { previewImg, tags } = this.props;
+    const { previewImg, tags, onImgCardClick } = this.props;
 
-    this.props.onImgCardClick({ alt: tags, img: previewImg });
+    onImgCardClick({ alt: tags, img: previewImg });
   };
 
   render() {
@@ -26,10 +26,10 @@ class ImageGalleryItem extends Component {
   }
 }
 
-ImageGalleryItem.propTypes = {
-  previewImg: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-  onImgCardClick: PropTypes.func.isRequired,
-};
+// ImageGalleryItem.propTypes = {
+//   previewImg: PropTypes.string.isRequired,
+//   tags: PropTypes.string.isRequired,
+//   onImgCardClick: PropTypes.func.isRequired,
+// };
 
 export default ImageGalleryItem;
