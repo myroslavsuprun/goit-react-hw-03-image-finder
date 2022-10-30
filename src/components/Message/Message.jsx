@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // Styled components
-import { Title } from './ErrorMessage.styled';
+import { Title } from './Message.styled';
 
 class ErrorMessage extends Component {
   static defaultProps = {

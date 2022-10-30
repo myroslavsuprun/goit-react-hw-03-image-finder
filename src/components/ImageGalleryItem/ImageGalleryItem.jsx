@@ -6,18 +6,18 @@ import { GalleryItem, GalleryImage } from './ImageGalleryItem.styled';
 
 class ImageGalleryItem extends Component {
   static defaultProps = {
-    previewImg: 'https://picsum.photos/id/237/200/300',
-    tags: '',
+    previewImg: 'https://picsum.photos/id/2/1000/?blur=10',
   };
 
   handleClick = () => {
-    const { previewImg, tags } = this.props;
+    const { previewImg, tags, onImgCardClick } = this.props;
 
-    this.props.onImgCardClick({ alt: tags, img: previewImg });
+    onImgCardClick({ alt: tags, img: previewImg });
   };
 
   render() {
     const { previewImg, tags } = this.props;
+
     return (
       <GalleryItem onClick={this.handleClick}>
         <GalleryImage loading="lazy" src={previewImg} alt={tags} />
@@ -27,8 +27,8 @@ class ImageGalleryItem extends Component {
 }
 
 ImageGalleryItem.propTypes = {
-  previewImg: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
+  previewImg: PropTypes.string,
+  tags: PropTypes.string,
   onImgCardClick: PropTypes.func.isRequired,
 };
 
